@@ -10,5 +10,5 @@ urlpatterns = [
     path('order/edit/<int:pk>/', OrdersEditarPageView.as_view(), name='order_edit'),
     path('order/delete/<int:pk>/', OrdersEliminarPageView.as_view(), name='order_delete'),
     path('custumer/create', CustumerViewPage.as_view(),name='custumer_create'),
-    path('custumer/edit/<int:pk>/', CustumersEditarViewPage.as_view(), name='custumer_edit')
+    #path('custumer/edit/<int:pk>/', CustumersEditarViewPage.as_view(), name='custumer_edit')
 ]
