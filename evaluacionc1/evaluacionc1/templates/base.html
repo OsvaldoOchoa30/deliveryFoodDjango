@@ -1,0 +1,20 @@
+<html>
+    <head>
+        {% load static %}
+        <title> DeliveryFood </title>
+        <link rel="stylesheet" 
+        href="{% static 'estilo.css' %}">
+    </head>
+    <body>
+
+<header>
+    <a href="{% url 'home' %}">Home</a>
+</header>
+
+{% block content %}
+
+{% endblock content %}
+
+</body>
+</html>
+
