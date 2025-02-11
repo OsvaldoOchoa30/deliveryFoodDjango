@@ -1,8 +1,10 @@
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from .vistas.formCustomer import FormCustomer
 from .models import Category, Customer, Delivery, OrderProduct, Orders, Product
+
 
 def login_required_class_based_view(cls):
     return method_decorator(login_required, name='dispatch')(cls)
@@ -10,7 +12,7 @@ def login_required_class_based_view(cls):
 
 class HomePageView(TemplateView):
     template_name = 'home.html'
-    
+
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 
@@ -58,6 +60,16 @@ class OrdersEliminarPageView(TemplateView):
         return redirect('home')
     
 
-class CustumerViewPage():
+class CustumerViewPage(TemplateView):
+    template_name = 'create_custumer.html'
 
-    def get(self, request, pk, *args ,**kwargs)
+    def get(self, request, *args, **kwargs):
+        form = FormCustomer()
+        return self.render_to_response({'form': form})
+    
+    def post(self, request, *args, **kwargs):
+        form = FormCustomer(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        return self.render_to_response({'form': form})
