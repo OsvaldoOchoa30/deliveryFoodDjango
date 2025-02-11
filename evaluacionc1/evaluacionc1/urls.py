@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .view import HomePageView, OrdersCreateViewPage, OrdersEditarPageView, OrdersEliminarPageView, CustumerViewPage
+from .view import HomePageView, OrdersCreateViewPage, OrdersEditarPageView, OrdersEliminarPageView, CustumerViewPage, CustumerEditaViewPage, CustumerEliminarPageView
 
 
 urlpatterns = [
@@ -10,5 +10,6 @@ urlpatterns = [
     path('order/edit/<int:pk>/', OrdersEditarPageView.as_view(), name='order_edit'),
     path('order/delete/<int:pk>/', OrdersEliminarPageView.as_view(), name='order_delete'),
     path('custumer/create', CustumerViewPage.as_view(),name='custumer_create'),
-    path('custumer/edit/<int:pk>/', CustumersEditarViewPage.as_view(), name='custumer_edit')
+    path('custumer/edit/<int:pk>/', CustumerEditaViewPage.as_view(), name='custumer_edit'),
+    path('custumer/delete/<int:pk>', CustumerEliminarPageView.as_view(),name='custumer_delete')
 ]

@@ -12,6 +12,7 @@ def login_required_class_based_view(cls):
 
 class HomePageView(TemplateView):
     template_name = 'home.html'
+    
 
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
@@ -73,3 +74,32 @@ class CustumerViewPage(TemplateView):
             form.save()
             return redirect('home')
         return self.render_to_response({'form': form})
+
+
+
+class CustumerEditaViewPage(TemplateView): 
+    template_name = 'update_custumer.html'
+    def get(self, request, pk,*args, **kwargs):
+        custumer = get_object_or_404(Customer, pk=pk)
+        form =  FormCustomer(request.POST); 
+        return self.render_to_response({'form': form});
+ 
+    def post(self, request, pk, *args, **kwargs):
+        custumer = get_object_or_404(Customer, pk=pk)
+        form = FormCustomer(request.POST, instance=custumer)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        return self.render_to_response({'form': form})        
+
+class CustumerEliminarPageView(TemplateView):
+    template_name = 'custumer_confirm_delete.html'
+
+    def get(self, request, pk, *args, **kwargs):
+        custumer = get_object_or_404(Customer, pk=pk)
+        return self.render_to_response({'order': custumer})
+
+    def post(self, request, pk, *args, **kwargs):
+        custumer = get_object_or_404(Customer, pk=pk)
+        custumer.delete()
+        return redirect('home')
