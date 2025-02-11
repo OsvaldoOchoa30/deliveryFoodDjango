@@ -7,14 +7,14 @@ from .models import Category, Customer, Delivery, OrderProduct, Orders, Product
 def login_required_class_based_view(cls):
     return method_decorator(login_required, name='dispatch')(cls)
 
+
 class HomePageView(TemplateView):
     template_name = 'home.html'
     
-    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 
-    
+
 class OrdersCreateViewPage(TemplateView):
     template_name = 'order_form.html'
     
@@ -57,3 +57,7 @@ class OrdersEliminarPageView(TemplateView):
         order.delete()
         return redirect('home')
     
+
+class CustumerViewPage():
+
+    def get(self, request, pk, *args ,**kwargs)
