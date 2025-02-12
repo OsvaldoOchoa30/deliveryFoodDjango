@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <ul>
+        {% for val in lista %}
+        <li>
+            {{val.id}} - {{val.date}} - {{val.id_customer}} - {{val.id_delivery}}
+        </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
