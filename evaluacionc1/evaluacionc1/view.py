@@ -1,105 +1,91 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import TemplateView
+from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from .vistas.formCustomer import FormCustomer
+from django.http import JsonResponse
+
 from .models import Category, Customer, Delivery, OrderProduct, Orders, Product
+from .vistas.formCustomer import FormCustomer
+from .vistas.formCategory import FormCategory
+from .vistas.formDelivery import FormDelivery
+from .vistas.formOrders import FormOrders
+from .vistas.formProduct import FormProduct
 
 
 def login_required_class_based_view(cls):
     return method_decorator(login_required, name='dispatch')(cls)
 
 
-class HomePageView(TemplateView):
-    template_name = 'home.html'
-    
-
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
+class HomePageView(View):
+    def get(self, request):
+        return render(request, 'home.html')
 
 
-class OrdersCreateViewPage(TemplateView):
-    template_name = 'order_form.html'
-    
-    def get(self, request, *args, **kwargs):
-        form = OrderForm()
-        return self.render_to_response({'form': form})
-    
-    def post(self, request, *args, **kwargs):
-        form = OrderForm(request.POST)
+class OrderViewPage(View):
+    def get(self, request):
+        form = FormOrders()
+        return render(request, 'create_order.html', {'form': form})
+
+    def post(self, request):
+        form = FormOrders(request.POST)
         if form.is_valid():
             form.save()
             return redirect('home')
-        return self.render_to_response({'form': form})
-    
-class OrdersEditarPageView(TemplateView):
-    template_name = 'order_form.html'
+        return render(request, 'create_order.html', {'form': form})
 
-    def get(self, request, pk, *args, **kwargs):
+
+class OrderEditarViewPage(View):
+    def get(self, request, pk):
         order = get_object_or_404(Orders, pk=pk)
-        form = OrderForm(instance=order)
-        return self.render_to_response({'form': form})
-    
-    def post(self, request, pk, *args, **kwargs):
+        form = FormOrders(instance=order)
+        return render(request, 'create_order.html', {'form': form})
+
+    def put(self, request, pk):
         order = get_object_or_404(Orders, pk=pk)
-        form = OrderForm(request.POST, instance=order)
+        form = FormOrders(request.POST, instance=order)
         if form.is_valid():
             form.save()
-            return redirect('home')
-        return self.render_to_response({'form': form})
-    
-class OrdersEliminarPageView(TemplateView):
-    template_name = 'order_confirm_delete.html'
+            return JsonResponse({'message': 'Orden actualizada correctamente'})
+        return JsonResponse({'error': form.errors}, status=400)
 
-    def get(self, request, pk, *args, **kwargs):
-        order = get_object_or_404(Orders, pk=pk)
-        return self.render_to_response({'order': order})
 
-    def post(self, request, pk, *args, **kwargs):
+class OrderEliminarViewPage(View):
+    def delete(self, request, pk):
         order = get_object_or_404(Orders, pk=pk)
         order.delete()
-        return redirect('home')
-    
+        return JsonResponse({'message': 'Orden eliminada correctamente'})
 
-class CustumerViewPage(TemplateView):
-    template_name = 'create_custumer.html'
 
-    def get(self, request, *args, **kwargs):
+class CustumerCrearViewPage(View):
+    def get(self, request):
         form = FormCustomer()
-        return self.render_to_response({'form': form})
-    
-    def post(self, request, *args, **kwargs):
+        return render(request, 'create_custumer.html', {'form': form})
+
+    def post(self, request):
         form = FormCustomer(request.POST)
         if form.is_valid():
             form.save()
             return redirect('home')
-        return self.render_to_response({'form': form})
+        return render(request, 'create_custumer.html', {'form': form})
 
 
+class CustumerEditarViewPage(View):
+    def get(self, request, pk):
+        customer = get_object_or_404(Customer, pk=pk)
+        form = FormCustomer(instance=customer)
+        return render(request, 'update_custumer.html', {'form': form})
 
-class CustumerEditaViewPage(TemplateView): 
-    template_name = 'update_custumer.html'
-    def get(self, request, pk,*args, **kwargs):
-        custumer = get_object_or_404(Customer, pk=pk)
-        form =  FormCustomer(request.POST); 
-        return self.render_to_response({'form': form});
- 
-    def post(self, request, pk, *args, **kwargs):
-        custumer = get_object_or_404(Customer, pk=pk)
-        form = FormCustomer(request.POST, instance=custumer)
+    def put(self, request, pk):
+        customer = get_object_or_404(Customer, pk=pk)
+        form = FormCustomer(request.POST, instance=customer)
         if form.is_valid():
             form.save()
-            return redirect('home')
-        return self.render_to_response({'form': form})        
+            return JsonResponse({'message': 'Cliente actualizado correctamente'})
+        return JsonResponse({'error': form.errors}, status=400)
 
-class CustumerEliminarPageView(TemplateView):
-    template_name = 'custumer_confirm_delete.html'
 
-    def get(self, request, pk, *args, **kwargs):
-        custumer = get_object_or_404(Customer, pk=pk)
-        return self.render_to_response({'order': custumer})
-
-    def post(self, request, pk, *args, **kwargs):
-        custumer = get_object_or_404(Customer, pk=pk)
-        custumer.delete()
-        return redirect('home')
+class CustumerEliminarViewPage(View):
+    def delete(self, request, pk):
+        customer = get_object_or_404(Customer, pk=pk)
+        customer.delete()
+        return JsonResponse({'message': 'Cliente eliminado correctamente'})
