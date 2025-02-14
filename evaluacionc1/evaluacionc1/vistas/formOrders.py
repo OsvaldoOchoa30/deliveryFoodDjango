@@ -20,8 +20,6 @@ class FormOrders(forms.ModelForm):
 
     def clean_id_customer(self):
         id_customer = self.cleaned_data.get('id_customer')
-        if not id_customer:
-            raise forms.ValidationError('Debe seleccionar un cliente.')
         return id_customer
 
     def clean_id_delivery(self):

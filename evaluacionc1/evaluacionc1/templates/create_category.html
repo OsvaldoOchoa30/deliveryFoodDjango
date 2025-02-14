@@ -2,4 +2,11 @@
 
 {% block content %}
 
+    <h1>{% if form.instance.id %}Editar{% else %}Crear{% endif %} Categoría </h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% if form.instance.id %}Actualizar{% else %}Guardar{% endif %} Pedido</button>
+    </form>
+
 {% endblock %}

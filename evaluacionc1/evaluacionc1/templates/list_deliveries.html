@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <ul>
+        {% for val in lista %}
+        <li>
+            {{val.id}} - {{val.name}} - {{val.last_name}} - {{val.status}} - {{val.phone_number}}
+
+            <a href="{% url 'delivery_edit' val.id %}">Editar?</a>
+            <a href="{% url 'delivery_delete' val.id %}"> Eliminar </a>
+
+        </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

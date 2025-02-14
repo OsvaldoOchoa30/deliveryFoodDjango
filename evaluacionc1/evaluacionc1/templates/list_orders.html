@@ -6,6 +6,10 @@
         {% for val in lista %}
         <li>
             {{val.id}} - {{val.date}} - {{val.id_customer}} - {{val.id_delivery}}
+
+            <a href="{% url 'custumer_edit' val.id %}">Editar?</a>
+            <a href="{% url 'custumer_delete' val.id %}"> Eliminar </a>
+
         </li>
         {% endfor %}
     </ul>

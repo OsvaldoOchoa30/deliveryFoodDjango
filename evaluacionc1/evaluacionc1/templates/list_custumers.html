@@ -1,25 +1,17 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
-<h1>Lista de Productos</h1>
-<table>
-    <thead>
-        <tr>
-            <th>Nombre</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for custumer in custumers %}
-        <tr>
-            <td>{{ product.name }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="4" style="text-align: center;">No hay productos disponibles.</td>
-        </tr>
+
+    <ul>
+        {% for val in lista %}
+        <li>
+            {{val.id}} - {{val.name}} - {{val.last_name}} - {{val.status}} - {{val.address}}
+
+            <a href="{% url 'custumer_edit' val.id %}">Editar?</a>
+            <a href="{% url 'custumer_delete' val.id %}"> Eliminar </a>
+
+        </li>
         {% endfor %}
-    </tbody>
-</table>
+    </ul>
 
 {% endblock %}

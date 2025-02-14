@@ -2,4 +2,16 @@
 
 {% block content %}
 
+    <ul>
+        {% for val in lista %}
+        <li>
+            {{val.id}} - {{val.name}} - {{val.description}} - {{val.price}} - {{val.amount}} - {{val.id_category}}
+
+            <a href="{% url 'product_edit' val.id %}">Editar?</a>
+            <a href="{% url 'product_delete' val.id %}"> Eliminar </a>
+
+        </li>
+        {% endfor %}
+    </ul>
+
 {% endblock %}

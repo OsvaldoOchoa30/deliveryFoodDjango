@@ -24,14 +24,10 @@ class FormCustomer(forms.ModelForm):
 
     def clean_name(self):
         name = self.cleaned_data['name'].strip()
-        if not name.isalpha():
-            raise forms.ValidationError('El nombre solo puede contener letras.')
         return name
 
     def clean_last_name(self):
         last_name = self.cleaned_data['last_name'].strip()
-        if not last_name.isalpha():
-            raise forms.ValidationError('El apellido solo puede contener letras.')
         return last_name
 
     def clean_phone_number(self):

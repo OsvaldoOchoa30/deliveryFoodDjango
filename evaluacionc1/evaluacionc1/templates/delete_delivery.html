@@ -2,4 +2,13 @@
 
 {% block content %}
 
+    <h1>¿Estás seguro de eliminar este repartidor?</h1>
+    <p><strong>ID delivery:</strong> {{ delivery.id }}</p>
+    <p><strong>Datos: </strong> Name: {{ delivery.name }}  -  dirección: {{ delivery.last_name }} -  status: {{ delivery.status }} -  Número de teléfono: {{ delivery.phone_number }}</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Eliminar Repartidor</button>
+    </form>
+    <a href="{% url 'home' %}">Cancelar</a>
+
 {% endblock %}

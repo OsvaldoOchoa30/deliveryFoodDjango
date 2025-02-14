@@ -24,8 +24,6 @@ class FormDelivery(forms.ModelForm):
 
     def clean_name(self):
         name = self.cleaned_data['name'].strip()
-        if not name.isalpha():
-            raise forms.ValidationError('El nombre solo puede contener letras.')
         return name
 
     def clean_last_name(self):

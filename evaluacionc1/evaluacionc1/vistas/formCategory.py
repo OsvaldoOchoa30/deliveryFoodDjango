@@ -20,14 +20,10 @@ class FormCategory(forms.ModelForm):
 
     def clean_name(self):
         name = self.cleaned_data['name']
-        if Category.objects.filter(name__iexact=name).exists():
-            raise forms.ValidationError('Ya existe una categoría con este nombre.')
         return name
 
     def clean_type(self):
         type = self.cleaned_data['type']
-        if len(type) < 3:
-            raise forms.ValidationError('El tipo de categoría debe tener al menos 3 caracteres.')
         return type
 
     def clean(self):

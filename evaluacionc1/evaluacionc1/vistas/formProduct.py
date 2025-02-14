@@ -25,9 +25,7 @@ class FormProduct(forms.ModelForm):
         self.fields['name'].widget.attrs['autofocus'] = True
 
     def clean_name(self):
-        name = self.cleaned_data.get('name')
-        if Product.objects.filter(name__iexact=name).exists():
-            raise forms.ValidationError('Ya existe un producto con este nombre.')
+        name = self.cleaned_data['name'].strip()
         return name
 
     def clean_price(self):
