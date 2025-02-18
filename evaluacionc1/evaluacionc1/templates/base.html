@@ -28,6 +28,20 @@
                                                 <li><a href="/">Inicio</a></li>
                                                 <li><a href="custumer/create">Acerca de</a></li>
                                                 <li><a href="/contact/">Contacto</a></li>
+
+                                                <!-- Mostrar logout solo si el usuario está autenticado -->
+                                                {% if user.is_authenticated %}
+                                                    <li>
+                                                        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                                                            {% csrf_token %}
+                                                            <button type="submit" style="background:none; border:none; color:#fff; cursor:pointer;">
+                                                                Cerrar sesión
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                {% else %}
+                                                    <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
+                                                {% endif %}
                                             </ul>
                                         </div>
                                     </nav>
@@ -61,4 +75,3 @@
 
 </body>
 </html>
-
