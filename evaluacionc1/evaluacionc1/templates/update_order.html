@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="formulario-create">
 <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">{% if form.instance.id %}Actualizar{% else %}Guardar{% endif %} Orden</button>
+    <button class="botonCreate" type="submit">{% if form.instance.id %}Actualizar{% else %}Guardar{% endif %} Orden</button>
 </form>
+</div>
 {% endblock %}

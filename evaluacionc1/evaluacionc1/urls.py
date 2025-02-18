@@ -6,7 +6,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomePageView.as_view(), name='home'),
     path('order/list', OrdersListViewPage.as_view(), name='order_list'),
-    path('order/create', OrderCrearViewPage.as_view(), name='order_create'),
+    path('order/create/', OrderCrearViewPage.as_view(), name='order_create'),
     path('order/edit/<int:pk>/', OrderEditarViewPage.as_view(), name='order_edit'),
     path('order/delete/<int:pk>', OrderEliminarViewPage.as_view(), name='order_delete'),
     path('custumer/list', CustumerListViewPage.as_view(), name='custumer_list'),

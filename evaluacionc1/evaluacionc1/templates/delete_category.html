@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+    <div class= "info">
     <h1>¿Estás seguro de eliminar esta categoría?</h1>
     <p><strong>ID category:</strong> {{ category.id }}</p>
     <p><strong>Datos: </strong> Nombre: {{ category.name }}  -  tipo: {{ category.type }}</p>
+    </div>
+
     <form method="POST">
         {% csrf_token %}
-        <button type="submit">Eliminar Category</button>
+        <div class="actions-delete">
+        <button class="botonCreate" type="submit">Eliminar</button>
     </form>
-    <a href="{% url 'home' %}">Cancelar</a>
-
+    <button class="botoncancelar" onclick="window.location.href='{% url 'home' %}'">Cancelar</button>
+</div>
 {% endblock %}

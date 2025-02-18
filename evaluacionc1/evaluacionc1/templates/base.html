@@ -6,54 +6,16 @@
         href="{% static 'estilo.css' %}">
     </head>
     <body>
-
-<header>
-
-    <header id="masthead" class="site-header">
-        <div class="header-main-wrapper">
-            <div class="bottom-header-outer-wrapper">
-                <div class="bottom-header-part">
-                    <div class="asterthemes-wrapper">
-                        <div class="bottom-header-part-wrapper">
-                            <div class="bottom-header-menu-part">
-                                <div class="navigation-part hello sticky-header">
-                                    <nav id="site-navigation" class="main-navigation">
-                                        <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                        </button>
-                                        <div class="main-navigation-links">
-                                            <ul>
-                                                <li><a href="/">Inicio</a></li>
-                                                <li><a href="custumer/create">Acerca de</a></li>
-                                                <li><a href="/contact/">Contacto</a></li>
-                                            </ul>
-                                        </div>
-                                    </nav>
-                                </div>
-                            </div>
-                            <div class="bottom-header-middle-part">
-                                <div class="site-branding">
-                                    <div class="site-logo">
-                                        <a href="{% url 'home' %}" rel="home">
-                                            <img src="{% static 'images/logo.jpg' %}" alt="Mi Sitio Django">
-                                        </a>
-                                    </div>
-                                    <div class="site-identity">
-                                        <h1 class="site-title">
-                                            <a href="{% url 'home' %}" rel="home">Mi Fondita</a>
-                                        </h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-</header>
+        <header id="masthead" class="site-header">
+            <a href="/"> <img class="logo" src="{% static 'images/logo.jpg' %}" alt="Mi Sitio Django"></a>
+            <ul>
+                <li class="info"><a href="{% url 'product_list' %}">Productos</a></li>
+                <li class="info"><a href="{% url 'order_list' %}">Ordenes</a></li>
+                <li class="info"><a href="{% url 'custumer_list' %}">Consumidores</a></li>
+                <li class="info"><a href="{% url 'category_list' %}">Categorias</a></li>
+                <li class="info"><a href="{% url 'delivery_list' %}">Repartidores</a></li>	
+            </ul>
+        </header>
 
 {% block content %}
 

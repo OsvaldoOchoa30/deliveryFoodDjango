@@ -1,17 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+    <div class="superior">
+    <h2 >Categorias</h2>
+    <a class="botonCreate" href="{% url 'category_create' %}">Nueva categoria</a>
+    </div>
+    <div class="containerlist">
+        <div class="list">
     <ul>
         {% for val in lista %}
         <li>
             {{val.id}} - {{val.name}} - {{val.type}}
-
-            <a href="{% url 'category_edit' val.id %}">Editar?</a>
+            <div class="options">
+            <a href="{% url 'category_edit' val.id %}">Editar</a>
             <a href="{% url 'category_delete' val.id %}"> Eliminar </a>
-
+            </div>
         </li>
         {% endfor %}
     </ul>
+    <div>
+</div>
 
 {% endblock %}

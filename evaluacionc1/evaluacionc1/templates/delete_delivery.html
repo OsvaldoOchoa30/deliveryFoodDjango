@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<div class= "info">
     <h1>¿Estás seguro de eliminar este repartidor?</h1>
     <p><strong>ID delivery:</strong> {{ delivery.id }}</p>
     <p><strong>Datos: </strong> Name: {{ delivery.name }}  -  dirección: {{ delivery.last_name }} -  status: {{ delivery.status }} -  Número de teléfono: {{ delivery.phone_number }}</p>
+</div>
     <form method="POST">
         {% csrf_token %}
-        <button type="submit">Eliminar Repartidor</button>
+        <div class="actions-delete">
+        <button class="botonCreate" type="submit">Eliminar</button>
     </form>
-    <a href="{% url 'home' %}">Cancelar</a>
+    <button class="botoncancelar" onclick="window.location.href='{% url 'home' %}'">Cancelar</button>
+</div>
 
 {% endblock %}

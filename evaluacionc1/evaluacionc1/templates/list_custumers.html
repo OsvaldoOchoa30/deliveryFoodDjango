@@ -1,17 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<div class="superior">
+<h2 >Consumidores</h2>
+<a class="botonCreate" href="{% url 'custumer_create' %}">Nuevo Consumidor</a>
+</div>
+<div class="containerlist">
+    <div class="list">
     <ul>
         {% for val in lista %}
         <li>
             {{val.id}} - {{val.name}} - {{val.last_name}} - {{val.status}} - {{val.address}}
-
-            <a href="{% url 'custumer_edit' val.id %}">Editar?</a>
+            <div class="options">
+            <a href="{% url 'custumer_edit' val.id %}">Editar</a>
             <a href="{% url 'custumer_delete' val.id %}"> Eliminar </a>
+            </div>
 
         </li>
         {% endfor %}
     </ul>
-
+    <div>
+</div>
 {% endblock %}
