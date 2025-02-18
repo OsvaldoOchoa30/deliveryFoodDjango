@@ -6,6 +6,7 @@
         href="{% static 'estilo.css' %}">
     </head>
     <body>
+
         <header id="masthead" class="site-header">
             <a href="/"> <img class="logo" src="{% static 'images/logo.jpg' %}" alt="Mi Sitio Django"></a>
             <ul>
@@ -14,6 +15,19 @@
                 <li class="info"><a href="{% url 'custumer_list' %}">Consumidores</a></li>
                 <li class="info"><a href="{% url 'category_list' %}">Categorias</a></li>
                 <li class="info"><a href="{% url 'delivery_list' %}">Repartidores</a></li>	
+
+                {% if user.is_authenticated %}
+                                                    <li>
+                                                        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                                                            {% csrf_token %}
+                                                            <button type="submit" style="background:none; border:none; color:#fff; cursor:pointer;">
+                                                                Cerrar sesión
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                {% else %}
+                                                    <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
+                                                {% endif %}
             </ul>
         </header>
 
@@ -23,4 +37,3 @@
 
 </body>
 </html>
-

@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from .view import *
 
 urlpatterns = [
@@ -25,4 +26,6 @@ urlpatterns = [
     path('product/create', ProductCrearViewPage.as_view(), name='product_create'),
     path('product/edit/<int:pk>/', ProductEditarViewPage.as_view(), name='product_edit'),
     path('product/delete/<int:pk>', ProductEliminarViewPage.as_view(), name='product_delete'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]

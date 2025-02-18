@@ -1,7 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.shortcuts import render
 
 from .models import Category, Customer, Delivery, OrderProduct, Orders, Product
 
@@ -14,8 +16,9 @@ from .vistas.formProduct import FormProduct
 def login_required_class_based_view(cls):
     return method_decorator(login_required, name='dispatch')(cls)
 
-class HomePageView(TemplateView):
+class HomePageView(LoginRequiredMixin, TemplateView):
     template_name = 'home.html'
+    login_url = '/login/'
 
 class BaseListView(TemplateView):
     model = None
