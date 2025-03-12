@@ -3,7 +3,7 @@ from .category import Category
 
 class Product(models.Model):
     name = models.CharField(max_length=50)
-    description = models.TextField()  # Ahora es un campo de texto más largo
+    description = models.TextField()  
     price = models.IntegerField()
     amount = models.IntegerField()
     id_category = models.ForeignKey(Category, on_delete=models.CASCADE)

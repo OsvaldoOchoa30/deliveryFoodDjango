@@ -16,4 +16,20 @@
             </ul>
         </div>
     </div>
+
+    <script>
+        console.log('ws//' + window.location.host + '/ws/somepath/ \n');
+        
+        const socket = new WebSocket('ws://' + window.location.host + '/ws/somepath/');
+    
+        socket.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            for(let i = 0; i < data.length; i++) {
+                console.log(data[i]);
+            }
+            console.log('ws://' + window.location.host + '/ws/somepath/ \n');
+        };
+    
+        socket.send(JSON.parse({ nombre: 'Carrera 1', descripcion: 'Descripcion 1' }));
+    </script>
 {% endblock content %}

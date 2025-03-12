@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chat WebSocket</title>
+</head>
+
+<body>
+    <h2>Chat en Tiempo Real</h2>
+    <input id="nombre" type="text">
+    <input id="apellido" type="text">
+    <input id="birthdate" type="date">
+    <button onclick="sendMessage()">Enviar</button>
+    <script>
+        const webSocker = new WebSocket("ws://192.168.29.144:8002/ws/test/")
+        console.log(webSocker)
+
+        webSocker.onopen = (event) => {
+            console.log("connet...")
+        }
+
+        webSocker.onclose = (event) => {
+            console.log("cerrando...")
+        }
+
+        webSocker.onerror = (event) => {
+            console.log("err...")
+        }
+
+
+        function sendMessage() {
+            let nombre = document.getElementById("nombre").value;
+            let apellido = document.getElementById("apellido").value;
+            let birthdate = document.getElementById("birthdate").value;
+
+            let carrera = {
+                "nombre": nombre,
+                'apellido': apellido,
+                'fecha_nacimiento': birthdate
+            }
+            webSocker.send(JSON.stringify({ "autor": carrera }))
+        }
+    </script>
+</body>
+
+</html>

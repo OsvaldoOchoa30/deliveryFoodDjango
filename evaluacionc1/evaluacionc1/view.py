@@ -20,18 +20,20 @@ class HomePageView(LoginRequiredMixin, TemplateView):
     template_name = 'home.html'
     login_url = '/login/'
 
-class BaseListView(TemplateView):
+class BaseListView(LoginRequiredMixin, TemplateView):
     model = None
     template_name = ""
+    login_url = '/login/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["lista"] = self.model.objects.all()
         return context
 
-class BaseCreateView(TemplateView):
+class BaseCreateView(LoginRequiredMixin, TemplateView):
     template_name = ''
     form_class = None
+    login_url = '/login/'
 
     def get(self, request, *args, **kwargs):
         form = self.form_class()
@@ -44,10 +46,11 @@ class BaseCreateView(TemplateView):
             return redirect('home')
         return self.render_to_response({'form': form})
 
-class BaseUpdateView(TemplateView):
+class BaseUpdateView(LoginRequiredMixin, TemplateView):
     template_name = ''
     model = None
     form_class = None
+    login_url = '/login/'
 
     def get(self, request, pk, *args, **kwargs):
         instance = get_object_or_404(self.model, pk=pk)
@@ -62,9 +65,10 @@ class BaseUpdateView(TemplateView):
             return redirect('home')
         return self.render_to_response({'form': form})
 
-class BaseDeleteView(TemplateView):
+class BaseDeleteView(LoginRequiredMixin, TemplateView):
     template_name = ''
     model = None
+    login_url = '/login/'
 
     def get(self, request, pk, *args, **kwargs):
         instance = get_object_or_404(self.model, pk=pk)
@@ -159,3 +163,6 @@ class ProductEditarViewPage(BaseUpdateView):
 class ProductEliminarViewPage(BaseDeleteView):
     template_name = 'delete_product.html'
     model = Product
+
+class EnviarAutor(TemplateView):
+    template_name = 'createEntitie.html'

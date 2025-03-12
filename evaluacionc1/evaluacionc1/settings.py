@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-17%wix_4!_&jeqyryf(kv&az5vgvb0r@i(wf7_r(d#y1opnl%z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ '*' ]
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'evaluacionc1',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'evaluacionc1.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'tutorial/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,8 +70,14 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'evaluacionc1.wsgi.application'
+WSGI_APPLICATION = 'evaluacionc1.wsgi.application' 
+ASGI_APPLICATION = 'evaluacionc1.wsgi.application'
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

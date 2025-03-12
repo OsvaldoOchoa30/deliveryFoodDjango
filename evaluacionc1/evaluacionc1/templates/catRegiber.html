@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title> DeliveryFood </title>
+        <link rel="stylesheet" 
+        href="">
+    </head>
+    <body>   
+        <form action="submit" method="post">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            <br>
+            <label for="descripcion">Descripción:</label>
+            <input type="text" id="descripcion" name="descripcion" required>
+            <br>
+            <button type="send()">Registrar</button>
+            <script src="../static/send.js"></script>
+        </form>
+        <script>
+            const socket = new WebSocket('ws://172.31.144.1:8000/ws/category/new/');
+
+            socket.onopen = (() => {
+                console.log('Conexión establecida');
+                socket.send('Hola desde la App 1');
+            });
+
+            socket.onmessage = (event) => {
+                console.log('Mensaje recibido:', event.data);
+            };
+
+            send() {
+                let name = getElementById('nombre').value;
+                let description = getElementById('descripcion').value;
+                socket.send(JSON.stringify({ nombre: name, descripcion: description })); 
+            }
+        </script>
+
+    </body>
+</html>
